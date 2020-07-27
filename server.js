@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-io.sockets.on('connection', socket => {
+io.on('connection', socket => {
     console.log('New WS Connection...');
 
     socket.broadcast.emit('bla', 'welcome to chatCord') // for a specific client
