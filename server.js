@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 const bodyParser = require("body-parser");
 const path = require("path")
-const http = require('http');
 const express = require('express');
 const app = express();
-const server = app.listen(process.env.PORT);
+const server = require('http').createServer(app)
 const io = require('socket.io').listen(server);
 const user = require('./server/routes/user');
 const event = require('./server/routes/event');
@@ -17,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-io.on('connection', socket => {
+io.sockets.on('connection', socket => {
     console.log('New WS Connection...');
 
     socket.broadcast.emit('bla', 'welcome to chatCord') // for a specific client
