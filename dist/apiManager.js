@@ -8,6 +8,7 @@ class APIManager {
     }
     createNewUser = async user => {
         this.data.mainUser = await $.post("/user", user);
+        console.log(this.data.mainUser)
     }
     createNewEvent = async event => {
         this.data.events.push(await $.post("/event", event))
