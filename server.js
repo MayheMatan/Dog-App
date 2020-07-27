@@ -38,7 +38,7 @@ io.on('connection', socket => {
     })
 });
 
-const PORT = 3000 || process.env.PORT;
+const port = 3000 || process.env.PORT;
 
 app.use('/user', user);
 app.use('/users', user);
@@ -47,6 +47,4 @@ app.use('/events', event);
 app.use('/dog', dog);
 app.use('/dogs', dog);
 
-
-const port = 3000;
 server.listen(port, () => console.log(`Running server on port ${port}`)); ////*************check the documentition/
