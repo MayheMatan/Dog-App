@@ -3,15 +3,20 @@ const renderer = new Renderer();
 const socket = io();
 const geocoder = new google.maps.Geocoder();
 
-const loadPage = () => {
+const loadPage = async() => {
     if (apiManager.checkAuthState()) {
+        const user = JSON.parse(localStorage.getItem("user"))
+        await apiManager.getMainUserById(user._id)
         renderer.renderAuthNav(apiManager.data.mainUser);
-        apiManager.getMainUserById(JSON.parse(localStorage.getItem("user"))._id)
     } else {
-        renderer.renderNonAuthNav("");
+        renderer.renderNonAuthNav();
     }
-    renderer.renderLandingPage("")
+    renderer.renderLandingPage()
 }
+
+$("#navbar-container").on("click", ".events", () => {
+    renderer.renderEvent(apiManager.data.mainUser.event);
+})
 
 $("#navbar-container").on("click", ".logout", () => {
     apiManager.data.mainUser = {}
@@ -55,13 +60,13 @@ $("#main-container").on("click", ".register-btn", async function(e) {
     })
 })
 
-$("#main-container").on("click", ".login-btn", function () {
+$("#main-container").on("click", ".login-btn", function() {
     const email = $(this).siblings(".email").find("input").val();
     const password = $(this).siblings(".password").find("input").val();
     const user = JSON.parse(localStorage.getItem("user"));
     if (email === user.email && password === user.password) {
         apiManager.data.mainUser = user;
-        renderer.renderAuthNav();
+        renderer.renderAuthNav(apiManager.data.mainUser);
         renderer.renderProfile(apiManager.data.mainUser);
     } else {
         prompt("Username or password is not correct :(")
@@ -72,7 +77,7 @@ $("#navbar-container").on("click", ".profile", () => {
     renderer.renderProfile(apiManager.data.mainUser);
 });
 
-$("#navbar-container").on("click", ".map", async () => {
+$("#navbar-container").on("click", ".map", async() => {
     $("#main-container").empty();
     await apiManager.getAllNearbyUsers();
     initMap();
@@ -110,7 +115,7 @@ $("#main-container").on("click", ".edit-profile", async function() {
         localStorage.setItem("user", JSON.stringify(apiManager.data.mainUser));
         $("#main-container").empty().append("<div id='map'></div>");
         await apiManager.getAllNearbyUsers();
-        renderer.renderAuthNav();
+        renderer.renderAuthNav(apiManager.data.mainUser);
         initMap();
     })
 })
@@ -119,6 +124,10 @@ $("#main-container").on("click", ".map-profile", async function() {
     const otherUserId = $(this).closest("#iw-container").attr("class");
     await apiManager.getOtherUserById(otherUserId);
     renderer.renderProfile(apiManager.data.otherUser);
+})
+
+$("#navbar-container").on("click", ".events", () => {
+    renderer.renderEvents(apiManager.data.mainUser.event)
 })
 
 function initMap() {
@@ -148,12 +157,12 @@ function initMap() {
 
         let contentString =
             `<div class="${apiManager.data.users[i]._id}" id="iw-container">` +
-            `<div class="iw-title"><img src="${apiManager.data.users[i].dogs[0].dogPicture}" onerror="this.src='https://www.shvilhalev.co.il/wp-content/uploads/2018/07/default-user-image-300x300.png'" "class="map-image" height="80" width="80">` +
+            `<div class="iw-title"><img src="${apiManager.data.users[i].dogs[0].dogPicture}" onerror="this.src='https://www.shvilhalev.co.il/wp-content/uploads/2018/07/default-user-image-300x300.png'" class="map-image" height="80" width="80">` +
             `<div class="iw-name">${apiManager.data.users[i].dogs[0].dogName}</div>` +
             '</div>' +
             '<div class="iw-content">' +
             `<div class="iw-subTitle">${apiManager.data.users[i].dogs[0].breed}</div>` +
-            `<p>${apiManager.data.users[i].dogs[0].favoriteToy}<br>${apiManager.data.users[i].dogs[0].favoriteTreat}</p>` +
+            `<p class='iw-moreinfo'><i class="fas fa-dog"></i>&nbsp&nbsp&nbsp${apiManager.data.users[i].dogs[0].favoriteToy}<br><i class="fas fa-bone"></i>&nbsp&nbsp&nbsp${apiManager.data.users[i].dogs[0].favoriteTreat}</p>` +
             '<button class="map-profile">Profile</button>' +
             '</div>' +
             '<div class="iw-bottom-gradient"></div>' +
@@ -172,7 +181,7 @@ function initMap() {
             content: content
         })
 
-        marker.addListener('click', function () {
+        marker.addListener('click', function() {
             infowindow.open(marker.get("map"), marker);
         });
     }
@@ -183,28 +192,28 @@ socket.on('messege', message => {
     apiManager.data.messages.push(message)
 })
 
-function ck(){
+function ck() {
     event.preventDefault()
     const name = apiManager.data.mainUser.firstName
     const id = apiManager.data.mainUser._id
     const input = $("#chat-input").val()
     const time = moment().format('LTS')
-    const messageObj = { 
+    const messageObj = {
         id: id,
         name: name,
         input: input,
-        time: time 
+        time: time
     }
     socket.emit('chatMessage', messageObj)
     $("#chat-input").val('')
-}    
+}
 
 $(document).ready(function() {
     $("#navbar-container").on("click", ".map", async() => {
         $("#main-container").empty().append("<div id='map'></div>");
         await apiManager.getMainUserById(JSON.parse(localStorage.getItem("user"))._id)
         await apiManager.getAllNearbyUsers();
-        renderer.renderAuthNav()
+        renderer.renderAuthNav(apiManager.data.mainUser)
         initMap();
     });
 })
