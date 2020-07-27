@@ -2,17 +2,19 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-    firstName : String, 
+    firstName: String,
     lastName: String,
-    dogs :[{type: Schema.Types.ObjectId, ref: 'Dogs'}],
+    dogs: [{ type: Schema.Types.ObjectId, ref: 'Dogs' }],
     email: String,
-    password : String,
-    event:[{type: Schema.Types.ObjectId, ref: 'Events'}],
+    password: String,
+    event: [{ type: Schema.Types.ObjectId, ref: 'Events' }],
     aboutMe: String,
-    userPicture  : String,
+    userPicture: String,
     radius: Number,
     userLat: Number,
-    userLon: Number
+    userLon: Number,
+    city: String,
+    country: String
 })
 
 
