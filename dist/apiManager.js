@@ -16,8 +16,8 @@ class APIManager {
     createNewEvent = async event => {
         this.data.events.push(await $.post("/event", event))
     }
-    createNewDog = (userId, dog) => {
-        $.post(`/dog/${userId}`, dog);
+    createNewDog = async (userId, dog) => {
+       await $.post(`/dog/${userId}`, dog);
     }
     getAllEvents = async() => {
         this.data.events = await $.get("/events");
@@ -25,8 +25,8 @@ class APIManager {
     getAllNearbyUsers = async() => {
         this.data.users = await $.get("/users");
     }
-    updateUserProfile = (userId, info) => {
-        $.ajax({
+    updateUserProfile = async (userId, info) => {
+       await $.ajax({
             url: `user/${userId}`,
             method: "PUT",
             data: info,
@@ -43,8 +43,8 @@ class APIManager {
         });
     }
 
-    updateDog = (dogId, info) => {
-        $.ajax({
+    updateDog = async (dogId, info) => {
+      await  $.ajax({
             url: `/dog/${dogId}`,
             method: "PUT",
             data: info,
