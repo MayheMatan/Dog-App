@@ -28,8 +28,8 @@ io.on('connection', socket => {
     // io.emit() //for  all the clients
 
     socket.on('disconnect', () => {
-        io.emit('blabla', 'user has left the chat')
-    }) //run when client disconnects
+            io.emit('blabla', 'user has left the chat')
+        }) //run when client disconnects
 
 
     socket.on('chatMessage', msg => {
@@ -48,5 +48,5 @@ app.use('/dog', dog);
 app.use('/dogs', dog);
 
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`Running server on port ${port}`)); ////*************check the documentition/
