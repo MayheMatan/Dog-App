@@ -3,11 +3,15 @@ class APIManager {
         this.data = {
             mainUser: {},
             users: [],
-            events: []
+            events: [],
+            otherUser: {},
         };
     }
     getMainUserById = async userId => {
         this.data.mainUser = await $.get(`/user/${userId}`)
+    }
+    getOtherUserById = async userId => {
+        this.data.otherUser = await $.get(`/user/${userId}`)
     }
     createNewUser = async user => {
         this.data.mainUser = await $.post("/user", user);
@@ -16,8 +20,8 @@ class APIManager {
     createNewEvent = async event => {
         this.data.events.push(await $.post("/event", event))
     }
-    createNewDog = async (userId, dog) => {
-       await $.post(`/dog/${userId}`, dog);
+    createNewDog = async(userId, dog) => {
+        await $.post(`/dog/${userId}`, dog);
     }
     getAllEvents = async() => {
         this.data.events = await $.get("/events");
@@ -25,13 +29,13 @@ class APIManager {
     getAllNearbyUsers = async() => {
         this.data.users = await $.get("/users");
     }
-    updateUserProfile = async (userId, info) => {
-       await $.ajax({
+    updateUserProfile = async(userId, info) => {
+        await $.ajax({
             url: `user/${userId}`,
             method: "PUT",
             data: info,
             success: updatedUser => {
-                this.mainUser = updatedUser;
+                this.data.mainUser = updatedUser;
             }
         });
     }
