@@ -4,13 +4,12 @@ const bodyParser = require("body-parser");
 const path = require("path")
 const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
 const app = express();
 const user = require('./server/routes/user');
 const event = require('./server/routes/event');
 const dog = require('./server/routes/dog');
-const server = http.createServer(app).listen(process.env.PORT || 3000);
-const io = socketio(server);
+var server = app.listen(process.env.PORT || 3000)
+var io = require('socket.io').listen(server);
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://MayheMatan:Mayhematan123@cluster0-cp7uu.mongodb.net/Dogs-app?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 app.use(express.static(path.join(__dirname, 'dist')));
