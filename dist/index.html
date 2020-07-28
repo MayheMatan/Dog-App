@@ -228,6 +228,79 @@
         </div>
     </script>
 
+    <script id="profile-other-template" type="text/x-handlebars-template">
+        <div class="card-panel">
+            <a><img class="profile-picture" src="{{userPicture}}" onerror="this.src='https://www.shvilhalev.co.il/wp-content/uploads/2018/07/default-user-image-300x300.png'"></a>
+            <div class='profile-name'>{{firstName}} {{lastName}}</div>
+        </div>
+        <div class="profile-container row">
+            <div class="col s12 m6 l6">
+                <div class="profile-card card">
+                    {{#if city}}
+                    <div class='profile-location'><i class="material-icons">location_on</i>{{city}}, {{country}}</div>
+                    <p class='profile-aboutme'>{{aboutMe}}</p>
+                    {{/if}} {{#unless city}}
+                    <div class='profile-location'><i class="material-icons">location_on</i>City, Country</div>
+                    <p class='profile-aboutme'>Please describe yourself so people can get to know you and your dogs!</p>
+                    {{/unless}}
+                </div>
+            </div>
+            {{#if dogs}} {{#each dogs}}
+            <div class="col s12 m6 l6">
+                <div class="profile-card card">
+                    <a><img class="profile-dog-picture circle" src="{{dogPicture}}"></a>
+                    <div class='profile-dog-name'>{{dogName}}</div>
+                    <div class='profile-dog-text'>
+                        <div class='profile-breed'><i class="fas fa-paw"></i>&nbsp&nbsp&nbsp {{breed}}</div>
+                        <div class='profile-weight'><i class="fas fa-weight"></i>&nbsp&nbsp&nbsp {{weight}}kg</div>
+                        <div class='profile-toy'><i class="fas fa-shapes"></i>&nbsp&nbsp&nbsp {{favoriteToy}}</div>
+                        <div class='profile-treat'><i class="fas fa-bone"></i>&nbsp&nbsp&nbsp {{favoriteTreat}}</div>
+                    </div>
+                </div>
+            </div>
+            {{/each}} {{/if}} {{#unless dogs}}
+            <div class="col s12 m6 l6">
+                <div class="profile-card card">
+                    <a><img class="profile-dog-picture circle" src="{{dogPicture}}" onerror="this.src='https://www.clipartkey.com/mpngs/m/42-420445_picture-free-library-grey-grey-dog-paw-print.png'"></a>
+                    <div class='profile-dog-name'>Your Dog!</div>
+                    <div class='profile-dog-text'>
+                        <div class='profile-breed'><i class="fas fa-paw"></i>&nbsp&nbsp&nbsp Dog breed</div>
+                        <div class='profile-weight'><i class="fas fa-weight"></i>&nbsp&nbsp&nbsp Dog weight</div>
+                        <div class='profile-toy'><i class="fas fa-shapes"></i>&nbsp&nbsp&nbsp Favorite Toy</div>
+                        <div class='profile-treat'><i class="fas fa-bone"></i>&nbsp&nbsp&nbsp Favorite Treat</div>
+                    </div>
+                </div>
+            </div>
+            {{/unless}}
+        </div>
+        </div>
+
+        <!-- CHAT------------------------------------------------------------------ -->
+        <div id="body">
+            <div id="chat-circle" class="large btn btn-raised">
+                <div id="chat-overlay"></div>
+                <i class="chat-icon material-icons large">chat</i>
+            </div>
+            <div class="chat-box">
+                <div class="chat-box-header">
+                    Chat&nbsp&nbsp&nbsp<i class="fas fa-paw"></i>
+                    <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+                </div>
+                <div class="chat-box-overlay"></div>
+                <div class="chat-logs"></div>
+                <div class="chat-input">
+                    <form class="idForm">
+                        <input id="chat-input" type="text" placeholder="Send a message..." />
+                        <div class="chat-submit" onclick="ck(this)">
+                            <i class="material-icons send">send</i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
     <script id="message-template" type="text/x-handlebars-template">
         <div class="message">
             <p>
@@ -247,28 +320,23 @@
                     <div class="event-info card-action right-align"><a class="event-add btn-floating btn-tiny waves-effect waves-light"><i
                                 class="join material-icons">add</i></a></div>
                     <div class='event-column'>
-                                <div class='event-column1'>
-                                <div class='event-time'>Join {{eventOwner.firstName}} {{eventOwner.lastName}}</div>
-                    <div class='event-time'>from {{startTime}}am to {{endTime}}pm!</div>
-                    <br>
-                    <div>{{address}}</div>
-                    <div>{{type}}</div>
-                    <span>{{description}}</span>
-                </div>
-                <div class='event-column2'>
-                    <div class='other-attend'>
-                    <div class='white' style='font-weight: bold; font-size: 15;'>Participants:</div>
-                    {{#each participations}}
-<<<<<<< HEAD
-                    <span class='participant'>{{firstName lastName}}</span>
-=======
-                    <div class='participant'>{{firstName}} {{lastName}}</div>
->>>>>>> master
-                    {{/each}}
-                </div>
-                </div>
-            </div>
-
+                        <div class='event-column1'>
+                            <div class='event-time'>Join {{eventOwner.firstName}} {{eventOwner.lastName}}</div>
+                            <div class='event-time'>from {{startTime}}am to {{endTime}}pm!</div>
+                            <br>
+                            <div>{{address}}</div>
+                            <div>{{type}}</div>
+                            <span>{{description}}</span>
+                        </div>
+                        <div class='event-column2'>
+                            <div class='other-attend'>
+                                <div class='white' style='font-weight: bold; font-size: 15;'>Participants:</div>
+                                {{#each participations}}
+                                <div class='participant'>{{firstName}} {{lastName}}</div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </li>
             {{/each}}

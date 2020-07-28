@@ -24,6 +24,10 @@ class Renderer {
         this.makeHandlebar("#profile-template", '#main-container', user)
     }
 
+    renderOtherProfile = (user) => {
+        this.makeHandlebar("#profile-other-template", '#main-container', user)
+    }
+
     renderEvents = (events) => {
         this.makeHandlebar("#events-template", '#main-container', events)
     }
