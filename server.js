@@ -2,18 +2,14 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 const bodyParser = require("body-parser");
 const path = require("path")
-const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
 const app = express();
+const server = require('http').createServer(app)
+const io = require('socket.io').listen(server);
 const user = require('./server/routes/user');
 const event = require('./server/routes/event');
 const dog = require('./server/routes/dog');
 const Message = require('./server/models/Message');
-
-
-const server = http.createServer(app);
-const io = socketio(server);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://MayheMatan:Mayhematan123@cluster0-cp7uu.mongodb.net/Dogs-app?retryWrites=true&w=majority", { useFindAndModify: true });
 app.use(express.static(path.join(__dirname, 'dist')));
