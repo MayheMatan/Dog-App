@@ -129,7 +129,7 @@ $("#main-container").on("click", ".edit-profile", async function() {
 $("#main-container").on("click", ".map-profile", async function() {
     const otherUserId = $(this).closest("#iw-container").attr("class");
     await apiManager.getOtherUserById(otherUserId);
-    renderer.renderProfile(apiManager.data.otherUser);
+    renderer.renderOtherProfile(apiManager.data.otherUser);
 })
 
 $("#navbar-container").on("click", ".events", async() => {
