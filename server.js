@@ -9,14 +9,7 @@ const io = require('socket.io').listen(server);
 const user = require('./server/routes/user');
 const event = require('./server/routes/event');
 const dog = require('./server/routes/dog');
-<<<<<<< HEAD
 const Message = require('./server/models/Message');
-
-
-const server = http.createServer(app);
-const io = socketio(server);
-=======
->>>>>>> e6da5c78f28202b218576c33a5dda6ccc9617390
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://MayheMatan:Mayhematan123@cluster0-cp7uu.mongodb.net/<Dogs-app>?retryWrites=true&w=majority", { useFindAndModify: true });
 app.use(express.static(path.join(__dirname, 'dist')));
