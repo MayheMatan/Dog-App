@@ -318,7 +318,30 @@
                 </div>
                 <div class="event-info collapsible-body">
                     <div class="event-info card-action right-align"><a class="event-add btn-floating btn-tiny waves-effect waves-light"><i
-                                class="join material-icons">add</i></a></div>
+                                class="join material-icons">add</i></a>
+                        <div id="body">
+                            <div id="chat-circle" class="large btn btn-raised">
+                                <div id="chat-overlay"></div>
+                                <i class="chat-icon material-icons large">chat</i>
+                            </div>
+                            <div class="chat-box">
+                                <div class="chat-box-header">
+                                    Chat&nbsp&nbsp&nbsp<i class="fas fa-paw"></i>
+                                    <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+                                </div>
+                                <div class="chat-box-overlay"></div>
+                                <div class="chat-logs"></div>
+                                <div class="chat-input">
+                                    <form class="idForm">
+                                        <input id="chat-input" type="text" placeholder="Send a message..." />
+                                        <div class="chat-submit" onclick="ck(this)">
+                                            <i class="material-icons send">send</i>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class='event-column'>
                         <div class='event-column1'>
                             <div class='event-time'>Join {{eventOwner.firstName}} {{eventOwner.lastName}}</div>
@@ -337,10 +360,6 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> c8fc24636795b3bcaa0a82495810fe79456dbe15
                 </div>
             </li>
             {{/each}}
