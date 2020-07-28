@@ -9,10 +9,13 @@ const app = express();
 const user = require('./server/routes/user');
 const event = require('./server/routes/event');
 const dog = require('./server/routes/dog');
+const Message = require('./server/models/Message');
+
+
 const server = http.createServer(app);
 const io = socketio(server);
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://MayheMatan:Mayhematan123@cluster0-cp7uu.mongodb.net/Dogs-app?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://MayheMatan:Mayhematan123@cluster0-cp7uu.mongodb.net/Dogs-app?retryWrites=true&w=majority", { useFindAndModify: true });
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(bodyParser.json())
@@ -31,14 +34,16 @@ io.on('connection', socket => {
             io.emit('blabla', 'user has left the chat')
         }) //run when client disconnects
 
-
     socket.on('chatMessage', msg => {
-        // const user = getCurrentUser(socket.id) //socket.id = current user id returning from DB
+        let message = new Message(msg)
+        message.save();
         io.emit('messege', msg)
     })
+
+
 });
 
-const PORT = 3000 || process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.use('/user', user);
 app.use('/users', user);
@@ -46,6 +51,5 @@ app.use('/event', event);
 app.use('/events', event);
 app.use('/dog', dog);
 app.use('/dogs', dog);
-
 
 server.listen(PORT, () => console.log(`Running server on port ${PORT}`)); ////*************check the documentition/

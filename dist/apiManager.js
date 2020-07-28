@@ -4,8 +4,9 @@ class APIManager {
             mainUser: {},
             users: [],
             events: [],
-            messages: [],
-            otherUser: {},
+
+            otherUser: {}
+
         };
     }
     getMainUserById = async userId => {
@@ -40,7 +41,7 @@ class APIManager {
             }
         });
     }
-    joinEvent = async(eventId, user) => {
+    joinEvent = (eventId, user) => {
         $.ajax({
             url: `/event/${eventId}`,
             method: "PUT",

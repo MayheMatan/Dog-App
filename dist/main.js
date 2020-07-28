@@ -3,6 +3,7 @@ const renderer = new Renderer();
 const socket = io();
 const geocoder = new google.maps.Geocoder();
 
+
 const loadPage = async() => {
     if (apiManager.checkAuthState()) {
         const user = JSON.parse(localStorage.getItem("user"))
@@ -147,7 +148,7 @@ $("#main-container").on("click", ".event-submit", async function() {
     const startTime = $(this).siblings(".date").find(".event-start").val();
     const endTime = $(this).siblings(".date").find(".event-end").val();
     const description = $(this).siblings(".description").find("input").val();
-    const eventOwner = apiManager.data.mainUser._id
+    const eventOwner = apiManager.data.mainUser._id;
     const newlyCreatedEvent = { eventName, eventPicture, type, address, eventDate, startTime, endTime, description, eventOwner };
     await apiManager.createNewEvent(newlyCreatedEvent, apiManager.data.mainUser._id)
     await apiManager.getAllEvents();
@@ -155,8 +156,8 @@ $("#main-container").on("click", ".event-submit", async function() {
 })
 
 $("#main-container").on("click", ".join", async function() {
-    const eventId = $(this).closest("li").attr("class");
-    await apiManager.joinEvent(eventId, apiManager.data.mainUser);
+    const eventId = $(this).closest("li").attr("class").split(" ");
+    await apiManager.joinEvent(eventId[0], apiManager.data.mainUser);
     await apiManager.getAllEvents()
     renderer.renderEvents(apiManager.data.events)
 })
@@ -220,7 +221,6 @@ function initMap() {
 
 socket.on('messege', message => {
     renderer.renderChatMessage(message)
-    apiManager.data.messages.push(message)
 })
 
 function ck() {
@@ -230,7 +230,7 @@ function ck() {
     const input = $("#chat-input").val()
     const time = moment().format('LTS')
     const messageObj = {
-        id: id,
+        userId: id,
         name: name,
         input: input,
         time: time
