@@ -11,7 +11,7 @@ const event = require('./server/routes/event');
 const dog = require('./server/routes/dog');
 const Message = require('./server/models/Message');
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://MayheMatan:Mayhematan123@cluster0-cp7uu.mongodb.net/<Dogs-app>?retryWrites=true&w=majority", { useFindAndModify: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://MayheMatan:Mayhematan123@cluster0-cp7uu.mongodb.net/Dogs-app?retryWrites=true&w=majority", { useFindAndModify: true });
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(bodyParser.json())
