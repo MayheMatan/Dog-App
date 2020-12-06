@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 
 <body>
@@ -245,7 +246,8 @@
                 </div>
                 <div class="event-info collapsible-body">
                     <div class="event-info card-action right-align"><a class="event-add btn-floating btn-tiny waves-effect waves-light"><i
-                                class="join material-icons">add</i></a></div>
+                                class="join material-icons">add</i></a>
+                    </div>
                     <div class='event-column'>
                                 <div class='event-column1'>
                                 <div class='event-time'>Join {{eventOwner.firstName}} {{eventOwner.lastName}}</div>
@@ -259,11 +261,7 @@
                     <div class='other-attend'>
                     <div class='white' style='font-weight: bold; font-size: 15;'>Participants:</div>
                     {{#each participations}}
-<<<<<<< HEAD
-                    <span class='participant'>{{firstName lastName}}</span>
-=======
                     <div class='participant'>{{firstName}} {{lastName}}</div>
->>>>>>> master
                     {{/each}}
                 </div>
                 </div>
@@ -274,7 +272,38 @@
             {{/each}}
         </ul>
         <a class="event-create waves-effect waves-light btn-large right">Add Event</a>
+        <div id="body">
+            <div id="chat-circle" class="large btn btn-raised">
+                <div id="chat-overlay"></div>
+                <i class="chat-icon material-icons large">chat</i>
+            </div>
+            <div class="chat-box">
+                <div class="chat-box-header">
+                    Chat&nbsp&nbsp&nbsp<i class="fas fa-paw"></i>
+                    <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+                </div>
+                <div class="chat-box-overlay"></div>
+                <div class="chat-logs"></div>
+                <div class="chat-input">
+                    <form class="idForm">
+                        <input id="chat-input" type="text" placeholder="Send a message..." />
+                        <div class="chat-submit" onclick="ck()">
+                            <i class="material-icons send">send</i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </script>
+
+    <script id="message-template-event" type="text/x-handlebars-template">
+        <div class="message">
+            <p>
+                <span class="message">{{time}}:{{name}}: {{input}}</span>
+            </p>
+        </div>
+    </script>
+
 
     <!-- PROFILE EDIT FORM ----------------------------------------------------------------------------- -->
     <script id="profileEdit-template" type="text/x-handlebars-template">
@@ -392,12 +421,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <script>
-        $("#navbar-container").on("click", ".button-collapse", function() {
+        $("#navbar-container").on("click", ".button-collapse", function () {
             $(this).sideNav()
         })
     </script>
     <script>
-        $("#main-container").on("click", ".collapsible", function() {
+        $("#main-container").on("click", ".collapsible", function () {
             $(this).collapsible();
         });
     </script>

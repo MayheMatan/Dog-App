@@ -228,6 +228,7 @@ function ck() {
     const name = apiManager.data.mainUser.firstName
     const id = apiManager.data.mainUser._id
     const input = $("#chat-input").val()
+    console.log(input)
     const time = moment().format('LTS')
     const messageObj = {
         userId: id,

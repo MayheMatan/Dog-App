@@ -26,10 +26,6 @@ io.on('connection', socket => {
 
     socket.broadcast.emit('bla', 'welcome to chatCord') // for a specific client
 
-    // socket.broadcast.emit('messege', 'a user has join') // for all clients except the one which is on
-
-    // io.emit() //for  all the clients
-
     socket.on('disconnect', () => {
             io.emit('blabla', 'user has left the chat')
         }) //run when client disconnects
